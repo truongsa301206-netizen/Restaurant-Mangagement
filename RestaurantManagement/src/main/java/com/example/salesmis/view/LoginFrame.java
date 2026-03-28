@@ -8,13 +8,18 @@ public class LoginFrame extends JFrame {
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JButton btnLogin;
+    private Runnable onLoginSuccess; // callback
 
     public LoginFrame() {
-        setTitle("Đăng nhập - Cơm Chiên Manager");
+        setTitle("Dang nhap - Com Chien Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 250);
         setLocationRelativeTo(null);
         initComponents();
+    }
+
+    public void setOnLoginSuccess(Runnable callback) {
+        this.onLoginSuccess = callback;
     }
 
     private void initComponents() {
@@ -23,40 +28,45 @@ public class LoginFrame extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel lblTitle = new JLabel("CƠM CHIÊN MANAGER", JLabel.CENTER);
+        JLabel lblTitle = new JLabel("COM CHIEN MANAGER", JLabel.CENTER);
         lblTitle.setFont(new Font("Arial", Font.BOLD, 18));
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         panel.add(lblTitle, gbc);
 
         gbc.gridwidth = 1;
         gbc.gridy = 1; gbc.gridx = 0;
-        panel.add(new JLabel("Tài khoản:"), gbc);
+        panel.add(new JLabel("Tai khoan:"), gbc);
 
         txtUsername = new JTextField(15);
         gbc.gridx = 1;
         panel.add(txtUsername, gbc);
 
         gbc.gridy = 2; gbc.gridx = 0;
-        panel.add(new JLabel("Mật khẩu:"), gbc);
+        panel.add(new JLabel("Mat khau:"), gbc);
 
         txtPassword = new JPasswordField(15);
         gbc.gridx = 1;
         panel.add(txtPassword, gbc);
 
-        btnLogin = new JButton("Đăng Nhập");
+        btnLogin = new JButton("Dang Nhap");
         gbc.gridy = 3; gbc.gridx = 0; gbc.gridwidth = 2;
         panel.add(btnLogin, gbc);
 
         add(panel);
 
-        // Giả lập Login thành công để demo
         btnLogin.addActionListener(e -> {
             String user = txtUsername.getText();
             String pass = new String(txtPassword.getPassword());
             if (user.equals("admin") && pass.equals("123")) {
-                this.dispose(); // Tự tắt đi và cho Launcher kích hoạt MainFrame
+                dispose();
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run(); // Goi callback mo MainFrame
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Thông tin tài khoản 'admin'/'123'", "Gợi ý", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Sai tai khoan hoac mat khau!",
+                        "Loi",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
     }
