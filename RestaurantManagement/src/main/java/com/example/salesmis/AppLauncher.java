@@ -17,6 +17,7 @@ import com.example.salesmis.service.impl.KhachHangServiceImpl;
 import com.example.salesmis.service.impl.LookupServiceImpl;
 import com.example.salesmis.service.impl.MonAnServiceImpl;
 import com.example.salesmis.service.impl.OrderServiceImpl;
+import com.example.salesmis.view.LoginFrame;
 import com.example.salesmis.view.*;
 
 import javax.swing.*;
@@ -57,14 +58,11 @@ public class AppLauncher {
 
             // Login trước khi vào MainFrame
             LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setOnLoginSuccess(() -> frame.setVisible(true));
             loginFrame.setVisible(true);
 
-            loginFrame.getBtnLogin().addActionListener(e -> {
-                // Ở LoginFrame đang check user/pass: admin/123
-                if (!loginFrame.isVisible()) {
-                    frame.setVisible(true);
-                }
-            });
+            
+
         });
     }
 }

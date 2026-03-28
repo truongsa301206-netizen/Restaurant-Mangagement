@@ -20,10 +20,12 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/quanli_nhahang?useSSL=false&amp;serverTimezone=Asia/Ho_Chi_Minh&amp;characterEncoding=UTF-8"/>
+                      value="jdbc:mysql://localhost:3306/quanli_nhahang?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Ho_Chi_Minh&amp;characterEncoding=UTF-8"/>
 
             <property name="jakarta.persistence.jdbc.user" value="root"/>
-            <property name="jakarta.persistence.jdbc.password" value="M@tkhau2006"/> <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="jakarta.persistence.jdbc.password" value="M@tkhau2006"/>
+
+            <!-- Bỏ hibernate.dialect vì Hibernate 7 tự nhận diện -->
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
