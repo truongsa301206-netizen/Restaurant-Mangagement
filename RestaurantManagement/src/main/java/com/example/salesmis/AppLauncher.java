@@ -61,7 +61,7 @@ public class AppLauncher {
             loginFrame.setOnLoginSuccess(() -> frame.setVisible(true));
             loginFrame.setVisible(true);
 
-            
+
 
         });
     }
